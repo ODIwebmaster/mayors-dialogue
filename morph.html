@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <script src="assets/lib/svg.js/svg.min.js"></script>
+  <!--  
+  <script src="assets/lib/svg.js/svg.pathmorphing.min.js"></script>
+  -->
+</head>
+<body>
+  <script type="text/javascript">
+    
+// // var draw = SVG('drawing').viewbox(0, 0, 300, 300);
+// // var draw = SVG().addTo('body').size(300, 300)
+// var draw = SVG().addTo('body').viewbox(0, 0, 300, 300);
+
+// // create path
+// var path = draw.path('M150 0 L75 200 L225 200 Z');
+
+// // animate path
+// path.animate().plot('M100 0 H190 V90 H100 Z');
+
+
+	let canvas = SVG().addTo('body').size('2000px', '2000px');
+	var randPoint = (x = 50, y = 50) => [
+	  Math.random() * 100 - 50 + x,
+	  Math.random() * 100 - 50 + y
+	];
+
+	var poly = canvas.polygon([
+	  randPoint(),
+	  randPoint(),
+	  randPoint(),
+	  randPoint(),
+	  randPoint()
+	]).attr({fill: 'none', stroke: 'black'});
+
+	var polyAni = poly.animate(new SVG.PID(0.01, 0.01));
+
+	SVG.on(document, 'click', function (e) {
+	  polyAni.plot([
+	    randPoint(e.pageX-50, e.pageY-50),
+	    randPoint(e.pageX+50, e.pageY-50),
+	    randPoint(e.pageX+50, e.pageY),
+	    randPoint(e.pageX+50, e.pageY+50),
+	    randPoint(e.pageX-50, e.pageY+50)
+	  ])
+	});
+
+  </script>
+</body>
+</html>
