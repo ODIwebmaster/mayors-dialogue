@@ -121,12 +121,12 @@ $desc = "Lorem ipsum dolor sit amet.";
               <div class="row">
                 <div class="col-sm-6">
                   <p class="font-sans-m font-bold color-a">Mayor</p>
-                  <hr class="border-top-color-a my-1" />
+                  <hr class="border-top-color-c my-1" />
                   <p class="font-sans-l font-bold color-a"><?= $cityData["mayor"] ?></p>
                 </div>
                 <div class="col-sm-6">
                   <p class="font-sans-m font-bold color-a">Next election</p>
-                  <hr class="border-top-color-a my-1" />
+                  <hr class="border-top-color-c my-1" />
                   <p class="font-sans-l font-bold color-a"><?= $cityData["nextelection"] ?></p>
                 </div>
                 <div class="col-12">
