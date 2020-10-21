@@ -1,0 +1,5 @@
+SVG compression
+
+Green = https://jakearchibald.github.io/svgomg/
+
+Yellow = https://vecta.io/nano
