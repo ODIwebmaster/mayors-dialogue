@@ -7,13 +7,104 @@
 // Variables
 // ------------------------------------------------------------------------
 
-// $color-a: #80404B;
+// Colors
+
 $color-a: #5B377D;
 $color-b: #FFE466;
 $color-c: #E95829;
 
-$space: 20px;
-$header-h: 60px;
+// $color-a: #B34444;
+// $color-b: #FFEE9C;
+// $color-c: #E8A989;
+
+
+// Layout
+
+$space: 30px;
+$header-h: 70px;
+
+// ------------------------------------------------------------------------
+// Color palettes
+// ------------------------------------------------------------------------
+
+$color-texts: $color-a;
+$color-shapes-lines-grid: $color-c;
+$color-shapes-lines-data: $color-a;
+$color-hr: $color-a;
+
+// .palette-1-color-texts       { color: $color-texts; }
+// .palette-1-stroke-lines-grid { stroke: $color-shapes-lines-grid !important; }
+// .palette-1-stroke-lines-data { stroke: $color-shapes-lines-data !important; }
+// .palette-1-color-hr          { border-top-color: $color-hr; }
+
+.palette-1-bg                { background-color:  #FFE466; }
+.palette-1-color-city-name   { color:             #5c377d; }
+.palette-1-color-texts       { color:             #5c377d; }
+.palette-1-color-texts-large { color:             #5c377d; }
+.palette-1-color-texts-upper { color:             #5c377d; }
+.palette-1-stroke-lines-data { stroke:            #e95829 !important; }
+.palette-1-stroke-lines-grid { stroke:            rgba(#5c377d, 0.5) !important; }
+.palette-1-color-hr          { border-top-color:  rgba(#5c377d, 0.5); }
+.palette-1-color-footer      { background-color:  white; }
+.palette-1-color-map         { color:             #5E397F; }
+
+.palette-2-bg                { background-color:  #9dcfbe; }
+.palette-2-color-city-name   { color:             #5c377d; }
+.palette-2-color-texts       { color:             #5c377d; }
+.palette-2-color-texts-large { color:             #5c377d; }
+.palette-2-color-texts-upper { color:             #5c377d; }
+.palette-2-stroke-lines-data { stroke:            #e95829 !important; }
+.palette-2-stroke-lines-grid { stroke:            rgba(#5c377d, 0.5) !important; }
+.palette-2-color-hr          { border-top-color:  rgba(#5c377d, 0.5); }
+.palette-2-color-footer      { background-color:  white; }
+.palette-2-color-map         { color:             #5E397F; }
+
+// --------------------------------------------------------------------------------
+
+.palette-3-bg                { background-color:  #FFE466; }
+.palette-3-color-city-name   { color:             #000000; }
+.palette-3-color-texts       { color:             darken(#CCAA5B, 20%); }
+.palette-3-color-texts-large { color:             #000000; }
+.palette-3-color-texts-upper { color:             darken(#CCAA5B, 20%); }
+.palette-3-stroke-lines-data { stroke:            #e95829 !important; }
+.palette-3-stroke-lines-grid { stroke:            rgba(#CCAA5B, 0.8) !important; }
+.palette-3-color-hr          { border-top-color:  rgba(#CCAA5B, 1); }
+.palette-3-color-footer      { background-color:  white; }
+.palette-3-color-map         { color:             #5E397F; }
+
+.palette-4-bg                { background-color:  #9dcfbe; }
+.palette-4-color-city-name   { color:             #000000; }
+.palette-4-color-texts       { color:             darken(#539E8F, 10%); }
+.palette-4-color-texts-large { color:             #000000; }
+.palette-4-color-texts-upper { color:             darken(#539E8F, 10%); }
+.palette-4-stroke-lines-data { stroke:            #e95829 !important; }
+.palette-4-stroke-lines-grid { stroke:            rgba(#539E8F, 0.8) !important; }
+.palette-4-color-hr          { border-top-color:  rgba(#539E8F, 1); }
+.palette-4-color-footer      { background-color:  white; }
+.palette-4-color-map         { color:             #5E397F; }
+
+.palette-5-bg                { background-color:  #E0D8E7; }
+.palette-5-color-city-name   { color:             #000000; }
+.palette-5-color-texts       { color:             darken(#9989A7, 20%); }
+.palette-5-color-texts-large { color:             #000000; }
+.palette-5-color-texts-upper { color:             darken(#9989A7, 20%); }
+.palette-5-stroke-lines-data { stroke:            #e95829 !important; }
+.palette-5-stroke-lines-grid { stroke:            rgba(#9989A7, 0.8) !important; }
+.palette-5-color-hr          { border-top-color:  rgba(#9989A7, 1); }
+.palette-5-color-footer      { background-color:  white; }
+.palette-5-color-map         { color:             #5E397F; }
+
+.palette-6-bg                { background-color:  #FDD9C0; }
+.palette-6-color-city-name   { color:             #000000; }
+.palette-6-color-texts       { color:             darken(#C28C78, 10%); }
+.palette-6-color-texts-large { color:             #000000; }
+.palette-6-color-texts-upper { color:             darken(#C28C78, 10%); }
+.palette-6-stroke-lines-data { stroke:            #e95829 !important; }
+.palette-6-stroke-lines-grid { stroke:            rgba(#C28C78, 0.8) !important; }
+.palette-6-color-hr          { border-top-color:  rgba(#C28C78, 1); }
+.palette-6-color-footer      { background-color:  white; }
+.palette-6-color-map         { color:             #5E397F; }
+
 
 // ------------------------------------------------------------------------
 // External files import
@@ -35,12 +126,16 @@ body {
 
 main { 
   padding-top: $header-h; 
+  padding-bottom: 100px; 
   min-height: 100vh;
 }
 
 a {
 	cursor: pointer;
   text-decoration: none;
+  &.active {
+    color: $color-c;
+  }
 }
 
 [data-url] {
@@ -81,6 +176,7 @@ hr {
 .color-white-50     { color: rgba(255,255,255, 0.5); }
 .bg-color-white     { background-color: white; }
 .hover-white:hover  { color: white; }
+.hover-u:hover      { text-decoration: underline; }
 .upper              { text-transform: uppercase; }
 .font-bold          { font-weight: 700; }
 
@@ -88,7 +184,7 @@ hr {
 // Grid
 // ------------------------------------------------------------------------
 
-$gridMargin: 20px;
+$gridMargin: $space;
 .cols-container {
   display: flex;
   justify-content: space-evenly;
@@ -102,8 +198,11 @@ $gridMargin: 20px;
 }
 
 @mixin col ($colN, $totalColN) {
-  width: calc((100% - #{$gridMargin * ($totalColN + 1)}) / #{$totalColN} * #{$colN} + #{$gridMargin * ($colN - 1)});
   position: relative;
+  width: calc((100% - #{$gridMargin * ($totalColN + 1)}) / #{$totalColN} * #{$colN} + #{$gridMargin * ($colN - 1)});
+  &.no-margin {
+    width: calc(100% / #{$totalColN} * #{$colN});
+  }
 }
 @mixin col-1-on-1 { @include col(1, 1); /*border: 1px solid rgba(black, 0.1);*/ }
 @mixin col-1-on-5 { @include col(1, 5); /*border: 1px solid rgba(black, 0.1);*/ }
@@ -119,6 +218,10 @@ $gridMargin: 20px;
 .col-1-on-2 { @include col-1-on-2; }
 .col-1-on-3 { @include col-1-on-3; }
 
+.adjust-margin {
+  padding: 0 15px;
+}
+
 // ------------------------------------------------------------------------
 // Sections
 // ------------------------------------------------------------------------
@@ -131,10 +234,13 @@ nav#header {
   align-items: center;
   justify-content: space-between;
   padding: 0 $space;
+  @include transition(top 400ms);
 
-  h1.title {
-    @include font-serif-l;
+  &.hide {
+    top: -$header-h - 10px;
   }
+
+  h1.title {}
 }
 
 section.city-detail {
@@ -151,14 +257,34 @@ section.city-detail {
     @include media-breakpoint-up(xl) { @include col-3-on-5; }
   }
 
-  // TEMPORARY
-  .city-detail-map img.img-fluid {
-    transform: scale(1.6);
+  .city-contents {
+    opacity: 0;
+    padding-top: 30px;
+    transform: translateY(30px);
+    @include transition(opacity 400ms 400ms, transform 800ms 400ms);
+
+    &.reveal {
+      opacity: 1;
+      transform: translateY(0px);
+    }
   }
 
-  .stat {
+  .city-detail-map {
+    padding-right: $space;
+  }
+
+  .description {
+    display: flex;
+    align-items: flex-end;
+    text-transform: uppercase;
+  }
+
+  .stat {  
+  
     .stat-meta-row {
       position: relative;
+      display: flex;
+      align-items: flex-start;
       
       .label { 
         display: inline-block;
@@ -179,10 +305,32 @@ section.city-detail {
         }
       }
     }
-    svg {
-      path.city-stat-path {
-        // stroke-width: 0.1vw;
-        stroke-width: 2px;
+    .stat-shape {
+      text-align: center;
+
+      svg {
+        display: inline-block;
+        max-width: 300px;
+        $width-small: 0.6px;
+        $width-large: 1.1px;
+        path.city-stat-path {
+          stroke-width: $width-small;
+          vector-effect: non-scaling-stroke;
+          opacity: 0.4;
+
+          &.active {
+            opacity: 1;
+          }
+
+          &#line-10, &#line-20, &#line-30 {
+            stroke-width: $width-large;
+            stroke-dasharray: 4 1;
+            &:not(.active) { 
+              opacity: 0.5;
+              opacity: 1;
+            }
+          }
+        }
       }
     }
   }
@@ -248,6 +396,50 @@ section.all-cities {
   &.xl { @include media-breakpoint-only(xl) { display: block; } }
 }
 
+section.footer-1 {}
+section.footer-2 {
+  background-color: #E1E5EA;
+  img.partners {
+    width: 580px;
+    max-width: 100%;
+  }
+}
+
+
+#legend-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  @include transition(opacity 400ms);
+
+  &.show {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .bg { 
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    opacity: 0.95;
+  }
+
+  .close-x {
+    pointer-events: all;
+    position: absolute;
+    top: $header-h + $space;
+    right: $space;
+    @include font-sans-l;
+    font-size: 40px;
+  }
+
+  img {
+    position: relative;
+  }
+}
 
 // ------------------------------------------------------------------------
 // BOOTSTRAP BREAKPOINTS

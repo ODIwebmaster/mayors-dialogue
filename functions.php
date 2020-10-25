@@ -43,46 +43,48 @@ function formatById ($rawDataset, $stats) {
 }
 
 
-function statMarkup ($stat, $statData, $svg) {
+function statMarkup ($stat, $statData, $svg, $palette) {
   // $statData["stat"]: 16
   // $statData["text"]: "16.00%"
   ?>
 
   <div class="stat mb-5 pb-3">
-    <p class="font-sans-m font-bold color-a"><?= $statData["description"] ?></p>
-    <hr class="border-top-color-c my-1" />
-    <p class="font-sans-l font-bold color-a"><?= $statData["text"] ?></p>
+    <p class="description font-sans-m font-bold <?= $palette ?>-color-texts-upper"><?= $statData["description"] ?></p>
+    <hr class="<?= $palette ?>-color-hr my-1" />
+    <p class="font-sans-l font-bold <?= $palette ?>-color-texts-large"><?= $statData["text"] ?></p>
+    <hr class="<?= $palette ?>-color-hr my-1" />
+    <p class="font-sans-s <?= $palette ?>-color-texts"><?= $statData["linescomment"] ?></p>
 
     <div class="stat-shape my-3" data-stat-id="<?= $stat ?>"><?= $svg ?></div>
     
-    <hr class="border-top-color-c my-1" />
+    <hr class="<?= $palette ?>-color-hr my-1" />
 
     <?php if ($statData["year"]): ?>
-      <div class="stat-meta-row font-sans-s color-a">
+      <div class="stat-meta-row font-sans-s <?= $palette ?>-color-texts">
         <p class="label">Year</p><p class="info"><?= $statData["year"] ?></p>
       </div>
-      <hr class="border-top-color-c my-1" />
+      <hr class="<?= $palette ?>-color-hr my-1" />
     <?php endif ?>
 
     <?php if ($statData["source"]): ?>
-      <div class="stat-meta-row font-sans-s color-a">
+      <div class="stat-meta-row font-sans-s <?= $palette ?>-color-texts">
         <p class="label">Source</p><p class="info"><?= $statData["source"] ?></p>
       </div>
-      <hr class="border-top-color-c my-1" />
+      <hr class="<?= $palette ?>-color-hr my-1" />
     <?php endif ?>
 
     <?php if ($statData["link"]): ?>
-      <div class="stat-meta-row font-sans-s color-a">
-        <p class="label">Weblink</p><p class="info weblink"><?= $statData["link"] ?></p>
+      <div class="stat-meta-row font-sans-s <?= $palette ?>-color-texts">
+        <p class="label">Weblink</p><p class="info weblink"><a class="<?= $palette ?>-color-texts hover-u" href="<?= $statData["link"] ?>" target="_blank"><?= $statData["link"] ?></a></p>
       </div>
-      <hr class="border-top-color-c my-1" />
+      <hr class="<?= $palette ?>-color-hr my-1" />
     <?php endif ?>
 
     <?php if ($statData["note"]): ?>
-      <div class="stat-meta-row font-sans-s color-a">
+      <div class="stat-meta-row font-sans-s <?= $palette ?>-color-texts">
         <p class="label">Notes</p><p class="info"><?= $statData["note"] ?></p>
       </div>
-      <hr class="border-top-color-c my-1" />
+      <hr class="<?= $palette ?>-color-hr my-1" />
     <?php endif ?>
 
   </div>
