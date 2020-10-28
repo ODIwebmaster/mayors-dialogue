@@ -14,13 +14,13 @@
 	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 400 400"
 	 style="enable-background:new 0 0 400 400;" xml:space="preserve">
 <style type="text/css">
-	.st0{opacity:0.3;fill:#FFFFFF;enable-background:new    ;}
+	.st0{opacity:0.45;fill:#FFFFFF;enable-background:new    ;}
 	.st1{fill:none;stroke:#E95829;stroke-width:0.8;stroke-miterlimit:10;}
 </style>
 <metadata>
 	<sfw  xmlns="&ns_sfw;">
 		<slices></slices>
-		<sliceSourceBounds  bottomLeftOrigin="true" height="228.178" width="294.166" x="263.439" y="290.463"></sliceSourceBounds>
+		<sliceSourceBounds  bottomLeftOrigin="true" height="228.178" width="294.166" x="53.439" y="80.463"></sliceSourceBounds>
 	</sfw>
 </metadata>
 <path class="st0" d="M324.975,91.857c5.04,1.104,8.928,4.368,12.048,10.224c2.976,5.856,3.792,12.576,4.56,19.248

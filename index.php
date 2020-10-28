@@ -46,19 +46,17 @@ $desc = "City-led initiative to deliver innovative and practical solutions for h
 
   // --- settings
 
+  $contentFolder = "1-beta";
   $defaultTitle = "Mayors Dialogue on&nbsp;Growth and&nbsp;Solidarity";
-  $contentFolder = "0-test";
   $stats = ["population", "gdp", "migrantspercent", "additional1", "additional2"];
   $palettes = [
     // "palette-1", 
     // "palette-2", 
     "palette-3", 
     "palette-4",
-    "palette-5",
-    "palette-6",
+    // "palette-5",
+    // "palette-6",
   ];
-  $palette = $palettes[floor(rand(0, count($palettes)-1))];
-
   // --- vars
 
   $contentFolderUrl = $urls["content"] ."/". $contentFolder;
@@ -71,6 +69,20 @@ $desc = "City-led initiative to deliver innovative and practical solutions for h
   $rawDataset = json_decode($jsonStr, true);
   shuffle($rawDataset);
   $dataById = formatById($rawDataset, $stats);
+
+  // --- city detail ?
+  
+  $cityDetailId = isset($_GET["c"]) ? $_GET["c"] : null;
+  if ($cityDetailId) {
+    $cityData = $dataById[$cityDetailId];
+    $pathToSvg = $paths["content"] ."/". $contentFolder ."/data-lines/". $cityDetailId .".svg";
+    $svg = file_get_contents($pathToSvg);
+    $mapUrl = $contentFolderUrl ."/maps/". $cityDetailId ."-map.png";
+  }
+
+  // --- palette choice
+  // $palette = $palettes[floor(rand(0, count($palettes)-1))];
+  $palette = ($cityDetailId !== null) ? "palette-4" : "palette-3";
 
   // --- preview spacing
 
@@ -94,16 +106,6 @@ $desc = "City-led initiative to deliver innovative and practical solutions for h
     "27"  => "xl",
   ];
 
-  // --- city detail ?
-  
-  $cityId = isset($_GET["c"]) ? $_GET["c"] : null;
-  if ($cityId) {
-    $cityData = $dataById[$cityId];
-    $pathToSvg = $paths["content"] ."/". $contentFolder ."/data-lines/". $cityId .".svg";
-    $svg = file_get_contents($pathToSvg);
-    $mapUrl = $contentFolderUrl ."/maps/". $cityId ."-map.png";
-  }
-
   // --- header title
 
   // $headerTitle = ($cityId !== null) ? $defaultTitle ." &rsaquo; ". $cityData["city"] : $defaultTitle;
@@ -119,9 +121,9 @@ $desc = "City-led initiative to deliver innovative and practical solutions for h
     
     <!-- City Detail -->
 
-    <?php if ($cityId): ?>
+    <?php if ($cityDetailId): ?>
 
-      <section class="city-detail my-5 adjust-margin">
+      <section class="city-detail adjust-margin">
         <!--  
         <div class="cols-container my-5">
           <div class="col-1-on-1 no-margin">
@@ -143,20 +145,26 @@ $desc = "City-led initiative to deliver innovative and practical solutions for h
             <div class="container-fluid">
               <div class="row">
                 <div class="order-md-3 col-12 mb-5">
-                  <div class="city-detail-map">
+                  <div class="city-detail-map pt-4 pt-md-2">
                     <img class="img-fluid" src="<?= $mapUrl ?>" />
                     <p class="scale font-sans-s <?= $palette ?>-color-map"><?= $cityData["map-scale"] ?></p>
                   </div>
                 </div>
                 <div class="order-md-1 col-sm-6 col-md-12 col-lg-6 mb-5">
                   <p class="description font-sans-m font-bold <?= $palette ?>-color-texts-upper">Mayor</p>
-                  <hr class="<?= $palette ?>-color-hr my-1" />
-                  <p class="font-sans-l font-bold <?= $palette ?>-color-texts-large"><?= $cityData["mayor"] ?></p>
+                  <hr class="<?= $palette ?>-color-hr" />
+                  <p class="font-display-l font-bold <?= $palette ?>-color-texts-large"><?= $cityData["mayor"] ?></p>
+                  <?php if ($cityData["mayor-note"]): ?>
+                    <p class="font-sans-s <?= $palette ?>-color-texts mt-2"><?= $cityData["mayor-note"] ?></p>
+                  <?php endif ?>
                 </div>
                 <div class="order-md-2 col-sm-6 col-md-12 col-lg-6 mb-5">
                   <p class="description font-sans-m font-bold <?= $palette ?>-color-texts-upper">Next election</p>
-                  <hr class="<?= $palette ?>-color-hr my-1" />
-                  <p class="font-sans-l font-bold <?= $palette ?>-color-texts-large"><?= $cityData["nextelection"] ?></p>
+                  <hr class="<?= $palette ?>-color-hr" />
+                  <p class="font-display-l font-bold <?= $palette ?>-color-texts-large"><?= $cityData["nextelection"] ?></p>
+                  <?php if ($cityData["nextelection-note"]): ?>
+                    <p class="font-sans-s <?= $palette ?>-color-texts mt-2"><?= $cityData["nextelection-note"] ?></p>
+                  <?php endif ?>
                 </div>
               </div>
             </div>
@@ -187,6 +195,7 @@ $desc = "City-led initiative to deliver innovative and practical solutions for h
       <div class="cols-container mt-5">
         <div class="col-1-on-1">
           <hr class="my-1" />
+          <div class="py-4"></div>
         </div>
       </div>
 
@@ -218,7 +227,10 @@ $desc = "City-led initiative to deliver innovative and practical solutions for h
     </div>
     */ ?>
 
+    <!-- <div class="adjust-xs-margin"></div> -->
+
     <section class="all-cities">
+
       <?php $i = 0; ?>
       <?php foreach ($dataById as $cityId => $d): ?>
 
@@ -226,10 +238,17 @@ $desc = "City-led initiative to deliver innovative and practical solutions for h
           <div class="wrap-line <?= $newlines["$i"] ?>"></div>
         <?php endif ?>
 
-        <div class="city-prev" data-city-id="<?= $cityId ?>">
+        <div class="city-prev off" data-city-id="<?= $cityId ?>">
           <div class="thumb-wrapper" data-url="<?= $urls["site"] ."?c=". $cityId ?>">
             <img class="lines" src="<?= "$contentFolderUrl/maps-landing-parts/$cityId" ?>-lines-population.svg" />
             <img class="map" src="<?= "$contentFolderUrl/maps-landing-parts/$cityId" ?>-map.png" />
+            <div class="legend-landing-text">
+              <span class="font-sans-m <?= $palette ?>-color-texts font-bold">Lines: population
+              <!-- <br class="d-none d-sm-block" /></span> -->
+              <br /></span>
+              <span class="font-sans-m <?= $palette ?>-color-texts">1 line = 100,000 people</span>
+            </div>
+            <div class="legend-landing-line"></div>
           </div>
           <div class="texts text-center">
             <p class="city font-serif-l font-bold"><?= $d["city"] ?></p>
@@ -243,26 +262,39 @@ $desc = "City-led initiative to deliver innovative and practical solutions for h
       <?php endforeach ?>
     </section>
 
+    <div id="comment-landing" class="text-center">
+      <div class="top">
+        <div class="mb-4">
+          <h1 class="font-serif-l landing-title mb-1"><?= $headerTitle ?></h1>
+          <p class="text font-serif-m">African and European cities taking action on human mobility</p>
+        </div>
+      </div>
+      <div class="bottom">
+        <div>
+          <p class="mb-4"><a class="btn" onclick="a.landing(false);">Explore &rarr;</a></p>
+          <!--  
+          <p class="text font-serif-m">The Mayors Dialogue on Growth and Solidarity: African and European cities taking action on human mobility</p>
+          -->
+        </div>
+      </div>
+    </div>
+
   </main>
 
-  <section class="footer-1 adjust-margin <?= $palette ?>-color-footer">
+  <!--  
+  <section id="about" class="footer-1 adjust-margin <?= $palette ?>-color-footer">
     <div class="container-fluid">
       <div class="row pb-4">
         <div class="col-md-8 col-lg-6 pt-4">
-          <h1 class="title font-serif-l"><a class="color-black" href="<?= $urls["site"] ?>"><?= $defaultTitle ?></a></h1>
+          <h1 class="title font-serif-l pt-5"><a class="color-black" href="<?= $urls["site"] ?>">About</a></h1>
           <p class="font-serif-m mt-5 mb-4">
             The Mayors Dialogue is a city-led initiative to deliver innovative and practical solutions for human mobility in African and European cities. It aims to improve the lives of all urban residents, including migrants, and help redress the power imbalances that persist between the two continents.
           </p>
         </div>
-        <!--  
-        <div class="col-md-4 col-lg-6 pt-4 text-md-right">
-          <a class="mr-3 ml-md-3 font-sans-m font-bold color-black" href="<?= $urls["site"] ?>">ALL CITIES</a>
-          <a class="mr-3 ml-md-3 font-sans-m font-bold color-black" href="<?= $urls["site"] ?>/about.php">ABOUT</a>
-        </div>
-        -->
       </div>
     </div>
   </section>
+  -->
   <section class="footer-2 adjust-margin">
     <div class="container-fluid">
       <div class="row py-5">
@@ -275,18 +307,60 @@ $desc = "City-led initiative to deliver innovative and practical solutions for h
 
   <div id="legend-overlay">
     <div class="bg <?= $palette ?>-bg"></div>
-    <img src="<?= $urls["assets"] ?>/images/<?= $palette ?>-legend.svg" />
+    <div class="content-wrapper-scroll">
+      <div class="container-fluid mb-5">
+        <div class="row">
+          <div class="col-lg-6 order-lg-2 align-items-start">
+            <div class="text-center">
+              <img class="d-none d-sm-inline-block" src="<?= $urls["assets"] ?>/images/legend.svg" />
+              <img class="d-sm-none" src="<?= $urls["assets"] ?>/images/legend_mobile.svg" />
+            </div>
+          </div>
+          <div class="col-lg-6 order-lg-1 align-self-stretch align-items-center">
+            <div>
+              <h2 class="font-serif-l mb-2">How to explore</h2>
+              <p class="font-serif-m">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sed turpis sed ipsum vehicula bibendum imperdiet in orci. In non vestibulum dui, at malesuada quam. Phasellus fermentum tempor purus ac tincidunt.</p>
+              <div class="spacer py-3"></div>
+              <h2 class="font-serif-l mb-2">About</h2>
+              <p class="font-serif-m">In <a class="u" href="https://www.odi.org/" target="_blank">ODI</a>'s latest collaboration with designers <a class="u" href="https://twitter.com/fedfragapane" target="_blank">Federica Fragapane</a> and <a class="u" href="https://www.alexpiacentini.com/" target="_blank">Alex Piacentini</a>, explore the cities participating in the Mayors Dialogue on Growth and Solidarity in this data visualisation. Find out more about the Dialogue here.
+
+                <!-- <a class="u" href="https://www.odi.org/projects/16889-mayors-dialogue-on-growth-and-solidarity-reimagining-human-mobility-in-africa-and-europe" target="_blank">here</a>.</p> -->
+               
+              <div class="spacer py-3"></div>
+              <p class="mb-5"><a class="btn" href="https://www.odi.org/publications/17420-mayors-dialogue-growth-and-solidarity-overview-cities-priorities-and-emerging-partnerships" target="_blank">Find out more &rarr;</a></p>
+             
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <a class="close-x" onclick="a.toggleLegend();">&times;</a>
   </div>
 
-  <nav id="header" class="bg-color-white">
-    <h1 class="d-none d-md-block title font-serif-l"><a class="color-black" href="<?= $urls["site"] ?>"><?= $headerTitle ?></a></h1>
-    <a class="d-md-none color-black" href="<?= $urls["site"] ?>">
-      <img class="title-xs" src="<?= $urls["assets"] ?>/images/logo-xs.svg" />
-    </a>
-    <div>
-      <a class="ml-3 font-sans-m font-bold color-black" href="<?= $urls["site"] ?>/about.php">ABOUT</a>
-      <a class="ml-3 font-sans-m font-bold color-black" onclick="a.toggleLegend();">LEGEND</a>
+  <nav id="header" class="<?= ($cityDetailId ? "" : "hide ") ?><?= $palette ?>-bg">
+    
+    <?php if ($cityDetailId === null): ?>
+      <!-- xs, sm -->
+      <a class="d-md-none color-black" href="<?= $urls["site"] ?>">
+        <img class="title-xs" src="<?= $urls["assets"] ?>/images/logo-xs.svg" />
+      </a>
+
+      <!-- md up -->
+      
+      <h1 class="d-none d-md-block title font-serif-l"><a class="color-black" href="<?= $urls["site"] ?>"><?= $headerTitle ?></a></h1>
+
+      <!-- V2 
+      <h1 class="d-none d-md-block title pt-2"><a class="color-black" href="<?= $urls["site"] ?>">
+        <span class="font-serif-l">Mayors Dialogue</span><br />
+        <span class="font-serif-s" style="position: relative; top: -13px;">on Growth and Solidarity</span>
+      </a></h1>
+      -->
+    <?php else: ?>
+      <a class="font-sans-m font-bold color-black" href="<?= $urls["site"] ?>">&larr; BACK</a>
+    <?php endif ?>
+    
+    <div class="text-right">
+      <a class="ml-3 font-sans-m font-bold color-black" onclick="a.toggleLegend();">How to explore</a>
     </div>
   </nav>
 
@@ -299,7 +373,7 @@ $desc = "City-led initiative to deliver innovative and practical solutions for h
     var formattedDataset = <?= json_encode($dataById) ?>;
     var baseUrl = '<?= $urls["site"] ?>';
     var contentFolderUrl = '<?= $contentFolderUrl ?>';
-    var cityData = <?= ($cityId !== null && isset($cityData)) ? json_encode($cityData) : "null" ?>;
+    var cityData = <?= ($cityDetailId !== null && isset($cityData)) ? json_encode($cityData) : "null" ?>;
     var palette = '<?= $palette ?>';
     console.log("palette", palette);
   </script>

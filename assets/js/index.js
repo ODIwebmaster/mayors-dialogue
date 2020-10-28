@@ -1,5 +1,4 @@
 function App (siteUrl, contentFolderUrl, data, palette) {
-    console.log(palette)
 
   // construct
 
@@ -7,11 +6,11 @@ function App (siteUrl, contentFolderUrl, data, palette) {
     data: data,
     currentDataType: "population",
     scrollPos: null,
+    landing: null,
   };
   this.siteUrl = siteUrl;
   this.contentFolderUrl = contentFolderUrl;
   this.palette = palette;
-  console.log(this.contentFolderUrl)
   
   // methods
 
@@ -50,11 +49,11 @@ function App (siteUrl, contentFolderUrl, data, palette) {
       // ------ Largest data line
       var largestDataLine = $(e).find("svg #line-"+ statLineNumber);
       var parent = $(e).find("svg");
-      largestDataLine.css("fill", "rgba(255,255,255,0.3)").prependTo(parent);
+      largestDataLine.css("fill", "rgba(255,255,255,0.45)").prependTo(parent);
       // ------ Most external line
       // var largestDataLine = $(e).find("svg #line-30");
       // var parent = $(e).find("svg");
-      // largestDataLine.css("fill", "rgba(255,255,255,0.3)").prependTo(parent);
+      // largestDataLine.css("fill", "rgba(255,255,255,0.45)").prependTo(parent);
 
     });
   }
@@ -85,10 +84,64 @@ function App (siteUrl, contentFolderUrl, data, palette) {
 
   this.toggleLegend = function () {
     $("#legend-overlay").toggleClass("show");
+    $("#header").toggleClass("hide", $("#legend-overlay").hasClass("show"));
   }
 
   this.displayCityDetail = function () {
     $(".city-contents").addClass("reveal");
+  }
+
+  this.landing = function (isLanding) {
+    if (isLanding) {
+
+      window.scrollTo(0, 0);
+
+      var size = getBootstrapSize();
+      var nth = null, n = null;
+      if (size == "xs") { nth = 1; n = 1; }
+      if (size == "sm") { nth = 1; n = 2; }
+      if (size == "md") { nth = 2; n = 3; }
+      if (size == "lg") { nth = 2; n = 4; }
+      if (size == "xl") { nth = 3; n = 5; }
+      $(".city-prev").each(function (i, e) {
+        if (i < n) {
+          $(e).removeClass("off");
+        }
+      });
+
+      if (size == "md" || size == "lg" || size == "xl") {
+        var scale = 1.25;
+        var h = $(window).height();
+        var s = $(".city-prev").height() * scale;
+        var headerH = $("section.all-cities").position().top;
+        
+        // --- translate .all-cities
+        var translateY = (h - s) / 2 - headerH; // vert centered
+        
+        /*** COMPENSATE ***/ // translateY -= (30 + s*0.03);
+        /*** COMPENSATE ***/ translateY -= 30;
+
+        var transform = "scale("+ scale +") translateY("+ translateY +"px)";
+        console.log("translateY", translateY)
+        $("section.all-cities").css("transform", transform);
+
+        // --- position title & comment
+        $("#comment-landing .top").css("height", ((h - s)/2) +"px");
+        $("#comment-landing .bottom").css("height", ((h - s)/2) +"px");
+      }
+
+      $(".city-prev:nth-child("+ nth +")").addClass("legend-on");
+      $("#comment-landing").addClass("show");
+      $("body").addClass("landing");
+
+    } else {
+    
+      $("section.all-cities").css("transform", "scale(1) translateY(0)");
+      $(".city-prev").removeClass("off").removeClass("legend-on");
+      $("#comment-landing").removeClass("show");
+      $("body").removeClass("landing");
+    }
+    this.state.landing = isLanding;
   }
 }
 
@@ -100,9 +153,12 @@ $(document).ready(function () {
 
   a = new App(baseUrl, contentFolderUrl, formattedDataset, palette); 
   if (cityData) {
+    a.landing(false);
     a.fillDataLines(cityData);
     a.uniformDescriptionHeights();
     a.displayCityDetail();
+  } else {
+    a.landing(true);
   }
 
   // -------------------------------
@@ -116,10 +172,8 @@ $(document).ready(function () {
   // $(window).scroll(_.throttle(function() {
   $(window).scroll(function() {
     var scroll = $(window).scrollTop();
-    console.log(scroll);
     
-    // Handle header classes
-    // ---------------------
+    // ---  Handle header classes
 
     var scrolledUp = scroll < (a.state.scrollPos - 5);
     var scrolledDown = scroll > a.state.scrollPos;
@@ -129,6 +183,14 @@ $(document).ready(function () {
     }
     if (!headerIsVisible && (scrolledUp || scroll == 0)) {
       $("#header").removeClass("hide");
+    }
+
+    // ---  Handle landing screen
+
+    var landingTextBottom = $("#comment-landing").position().top + $("#comment-landing").height();
+    var landingTextInViewport = (landingTextBottom - scroll) < $(window).height();
+    if (a.state.landing && scrolledDown && scroll > 50 && landingTextInViewport) {
+      a.landing(false);
     }
 
     a.state.scrollPos = scroll;
@@ -141,6 +203,19 @@ $(document).ready(function () {
 // FUNCTIONS
 // -------------------------------
 
+
+// --- 
+function getBootstrapSize () {
+  var w = $(window).width();
+  if (w < 576) { return "xs"; }
+  else if (w < 768) { return "sm"; }
+  else if (w < 992) { return "md"; }
+  else if (w < 1200) { return "lg"; }
+  else { return "xl"; }
+}
+
+
+// --- Shuffle items
 // --- via https://css-tricks.com/snippets/jquery/shuffle-dom-elements/
 
 (function($){

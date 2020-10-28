@@ -36,3 +36,8 @@ mv amsterdam-lines.svg amsterdam-lines-population.svg
 
 
 
+cp palette-1-legend.svg palette-2-legend.svg
+cp palette-1-legend.svg palette-3-legend.svg
+cp palette-1-legend.svg palette-4-legend.svg
+cp palette-1-legend.svg palette-5-legend.svg
+cp palette-1-legend.svg palette-6-legend.svg
