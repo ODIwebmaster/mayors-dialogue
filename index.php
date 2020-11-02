@@ -4,10 +4,10 @@ require "functions.php";
 
 // kill($urls, $paths);
 
-$url = "https://www..net";
-$urlSocialImg = $url. "/assets/images/----card.jpg";
+$url = $urls["site"];
+$urlSocialImg = $urls["assets"] ."/images/mayors-dialogue.jpg";
 $pageTitle = "Mayors Dialogue on Growth and Solidarity";
-$desc = "City-led initiative to deliver innovative and practical solutions for human mobility in African and European cities.";
+$desc = "African and European cities taking action on human mobility";
 ?>
 
 <!DOCTYPE html><html><head>
@@ -20,7 +20,7 @@ $desc = "City-led initiative to deliver innovative and practical solutions for h
 
   <!-- TWITTER -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:site" content="@matilde_muozz" />
+  <meta name="twitter:site" content="@ODIdev" />
   <meta name="twitter:title" content="<?= $pageTitle ?>" />
   <meta name="twitter:description" content="<?= $desc ?>" />
   <meta name="twitter:image" content="<?= $urlSocialImg ?>" />
@@ -32,12 +32,40 @@ $desc = "City-led initiative to deliver innovative and practical solutions for h
   <meta property="og:title" content="<?= $pageTitle ?>" />
   <meta property="og:description" content="<?= $desc ?>" />
 
+  <!-- Favicon -->
+  <link rel="apple-touch-icon" sizes="57x57" href="<?= $urls["assets"] ?>/favicon/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="<?= $urls["assets"] ?>/favicon/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="<?= $urls["assets"] ?>/favicon/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="<?= $urls["assets"] ?>/favicon/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="<?= $urls["assets"] ?>/favicon/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="<?= $urls["assets"] ?>/favicon/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="<?= $urls["assets"] ?>/favicon/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="<?= $urls["assets"] ?>/favicon/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="<?= $urls["assets"] ?>/favicon/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192"  href="<?= $urls["assets"] ?>/favicon/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="<?= $urls["assets"] ?>/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="<?= $urls["assets"] ?>/favicon/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="<?= $urls["assets"] ?>/favicon/favicon-16x16.png">
+  <link rel="manifest" href="<?= $urls["assets"] ?>/favicon/manifest.json">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="<?= $urls["assets"] ?>/favicon/ms-icon-144x144.png">
+  <meta name="theme-color" content="#ffffff">  
+
   <!-- Vendor -->
   <script src="<?= $urls['assets'] ?>/lib/jquery-3.5.1/jquery-3.5.1.min.js"></script>
 
   <!-- Style -->
   <link rel="stylesheet" type="text/css" href="<?= $urls["assets"] ?>/css/bootstrap-custom.css">
   <link rel="stylesheet" type="text/css" href="<?= $urls["assets"] ?>/css/index.css">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TYR970NTDF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TYR970NTDF');
+  </script>
 
 </head>
 <body>
@@ -47,7 +75,7 @@ $desc = "City-led initiative to deliver innovative and practical solutions for h
   // --- settings
 
   $contentFolder = "1-beta";
-  $defaultTitle = "Mayors Dialogue on&nbsp;Growth and&nbsp;Solidarity";
+  $defaultTitle = "The Mayors Dialogue on&nbsp;Growth and&nbsp;Solidarity";
   $stats = ["population", "gdp", "migrantspercent", "additional1", "additional2"];
   $palettes = [
     // "palette-1", 
@@ -144,13 +172,7 @@ $desc = "City-led initiative to deliver innovative and practical solutions for h
              
             <div class="container-fluid">
               <div class="row">
-                <div class="order-md-3 col-12 mb-5">
-                  <div class="city-detail-map pt-4 pt-md-2">
-                    <img class="img-fluid" src="<?= $mapUrl ?>" />
-                    <p class="scale font-sans-s <?= $palette ?>-color-map"><?= $cityData["map-scale"] ?></p>
-                  </div>
-                </div>
-                <div class="order-md-1 col-sm-6 col-md-12 col-lg-6 mb-5">
+                <div class="col-sm-6 mb-5">
                   <p class="description font-sans-m font-bold <?= $palette ?>-color-texts-upper">Mayor</p>
                   <hr class="<?= $palette ?>-color-hr" />
                   <p class="font-display-l font-bold <?= $palette ?>-color-texts-large"><?= $cityData["mayor"] ?></p>
@@ -158,13 +180,19 @@ $desc = "City-led initiative to deliver innovative and practical solutions for h
                     <p class="font-sans-s <?= $palette ?>-color-texts mt-2"><?= $cityData["mayor-note"] ?></p>
                   <?php endif ?>
                 </div>
-                <div class="order-md-2 col-sm-6 col-md-12 col-lg-6 mb-5">
+                <div class="col-sm-6 mb-5">
                   <p class="description font-sans-m font-bold <?= $palette ?>-color-texts-upper">Next election</p>
                   <hr class="<?= $palette ?>-color-hr" />
                   <p class="font-display-l font-bold <?= $palette ?>-color-texts-large"><?= $cityData["nextelection"] ?></p>
                   <?php if ($cityData["nextelection-note"]): ?>
                     <p class="font-sans-s <?= $palette ?>-color-texts mt-2"><?= $cityData["nextelection-note"] ?></p>
                   <?php endif ?>
+                </div>
+                <div class="col-12 mb-5">
+                  <div class="city-detail-map pt-4 pt-md-2">
+                    <img class="img-fluid" src="<?= $mapUrl ?>" />
+                    <p class="scale font-sans-s <?= $palette ?>-color-map"><?= $cityData["map-scale"] ?></p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -179,7 +207,7 @@ $desc = "City-led initiative to deliver innovative and practical solutions for h
                     
                   <?php if ($statData["stat"]): ?>
                     <!-- <div class="col-sm-6 col-xl-4"> -->
-                    <div class="col-sm-6 col-md-12 col-lg-6 col-xl-4">
+                    <div class="col-sm-6 col-xl-4">
                       <?php statMarkup($stat, $statData, $svg, $palette); ?>
                     </div>
                   <?php endif ?>
@@ -252,7 +280,7 @@ $desc = "City-led initiative to deliver innovative and practical solutions for h
           </div>
           <div class="texts text-center">
             <p class="city font-serif-l font-bold"><?= $d["city"] ?></p>
-            <p class="stat-text-home font-sans-m font-bold <?= $palette ?>-color-texts"><?= $d["stats"]["population"]["text"] ?> people</p>
+            <p class="stat-text-home font-sans-m font-weight-500 <?= $palette ?>-color-texts"><?= $d["stats"]["population"]["text"] ?> people</p>
             <!--  
             <p class="source font-sans-s <?= $palette ?>-color-texts"><?= $d["stats"]["population"]["source"] ?></p>
             -->
@@ -265,13 +293,13 @@ $desc = "City-led initiative to deliver innovative and practical solutions for h
     <div id="comment-landing" class="text-center">
       <div class="top">
         <div class="mb-4">
-          <h1 class="font-serif-l landing-title mb-1"><?= $headerTitle ?></h1>
-          <p class="text font-serif-m">African and European cities taking action on human mobility</p>
+          <h1 class="font-serif-l landing-title"><?= $headerTitle ?></h1>
+          <h2 class="font-serif-l landing-title font-weight-400">African and&nbsp;European cities taking action on&nbsp;human&nbsp;mobility</h2>
         </div>
       </div>
       <div class="bottom">
         <div>
-          <p class="mb-4"><a class="btn" onclick="a.landing(false);">Explore &rarr;</a></p>
+          <p class="mb-4"><a class="btn font-weight-500" onclick="a.landing(false);">Start&nbsp;&nbsp;&rarr;</a></p>
           <!--  
           <p class="text font-serif-m">The Mayors Dialogue on Growth and Solidarity: African and European cities taking action on human mobility</p>
           -->
@@ -281,25 +309,18 @@ $desc = "City-led initiative to deliver innovative and practical solutions for h
 
   </main>
 
-  <!--  
-  <section id="about" class="footer-1 adjust-margin <?= $palette ?>-color-footer">
-    <div class="container-fluid">
-      <div class="row pb-4">
-        <div class="col-md-8 col-lg-6 pt-4">
-          <h1 class="title font-serif-l pt-5"><a class="color-black" href="<?= $urls["site"] ?>">About</a></h1>
-          <p class="font-serif-m mt-5 mb-4">
-            The Mayors Dialogue is a city-led initiative to deliver innovative and practical solutions for human mobility in African and European cities. It aims to improve the lives of all urban residents, including migrants, and help redress the power imbalances that persist between the two continents.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-  -->
   <section class="footer-2 adjust-margin">
     <div class="container-fluid">
       <div class="row py-5">
         <div class="col-12 text-center my-2">
           <img class="partners" src="<?= $urls["assets"] ?>/images/partners.png" />
+        </div>
+      </div>
+      <div class="row pb-4">
+        <div class="col-12">
+          <a class="font-sans-m color-black-50 font-weight-500 mr-3" href="https://www.odi.org" target="_blank">Visit odi.org</a>
+          <a class="font-sans-m color-black-50 font-weight-500 mr-3" onclick="a.toggleLegend();">About</a>
+          <a class="font-sans-m color-black-50 font-weight-500 mr-3" href="https://www.odi.org/about/privacy-policy" target="_blank">Privacy</a>
         </div>
       </div>
     </div>
@@ -308,59 +329,52 @@ $desc = "City-led initiative to deliver innovative and practical solutions for h
   <div id="legend-overlay">
     <div class="bg <?= $palette ?>-bg"></div>
     <div class="content-wrapper-scroll">
-      <div class="container-fluid mb-5">
+      <div class="container-fluid <?= $palette ?>-bg-lighter">
         <div class="row">
-          <div class="col-lg-6 order-lg-2 align-items-start">
+          <div class="col-lg-7 col-xl-8 order-lg-2 align-items-start justify-content-center">
             <div class="text-center">
               <img class="d-none d-sm-inline-block" src="<?= $urls["assets"] ?>/images/legend.svg" />
               <img class="d-sm-none" src="<?= $urls["assets"] ?>/images/legend_mobile.svg" />
             </div>
           </div>
-          <div class="col-lg-6 order-lg-1 align-self-stretch align-items-center">
+          <div class="col-lg-5 col-xl-4 order-lg-1 align-self-stretch align-items-center">
             <div>
               <h2 class="font-serif-l mb-2">How to explore</h2>
-              <p class="font-serif-m">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sed turpis sed ipsum vehicula bibendum imperdiet in orci. In non vestibulum dui, at malesuada quam. Phasellus fermentum tempor purus ac tincidunt.</p>
+              <p class="font-serif-m">Each city is represented by the red lines, with the silhouette following the unique shape of the city map.<br />
+              Each group of lines corresponds to a different data point: population, GDP per capita and percentage of migrants. The number of red lines in each group represents the data.</p>
               <div class="spacer py-3"></div>
               <h2 class="font-serif-l mb-2">About</h2>
-              <p class="font-serif-m">In <a class="u" href="https://www.odi.org/" target="_blank">ODI</a>'s latest collaboration with designers <a class="u" href="https://twitter.com/fedfragapane" target="_blank">Federica Fragapane</a> and <a class="u" href="https://www.alexpiacentini.com/" target="_blank">Alex Piacentini</a>, explore the cities participating in the Mayors Dialogue on Growth and Solidarity in this data visualisation. Find out more about the Dialogue here.
-
-                <!-- <a class="u" href="https://www.odi.org/projects/16889-mayors-dialogue-on-growth-and-solidarity-reimagining-human-mobility-in-africa-and-europe" target="_blank">here</a>.</p> -->
-               
+              <p class="font-serif-m">In <a class="u" href="https://www.odi.org/" target="_blank">ODI</a>'s latest collaboration with designers <a class="u" href="https://twitter.com/fedfragapane" target="_blank">Federica Fragapane</a> and <a class="u" href="https://www.alexpiacentini.com/" target="_blank">Alex Piacentini</a>, explore the cities participating in the Mayors Dialogue on Growth and Solidarity in this data visualisation.</p>               
               <div class="spacer py-3"></div>
-              <p class="mb-5"><a class="btn" href="https://www.odi.org/publications/17420-mayors-dialogue-growth-and-solidarity-overview-cities-priorities-and-emerging-partnerships" target="_blank">Find out more &rarr;</a></p>
-             
+              <p class="mb-5"><a class="btn" href="https://www.odi.org/projects/16889-mayors-dialogue-on-growth-and-solidarity-reimagining-human-mobility-in-africa-and-europe#:~:text=Programmes-,The%20Mayors%20Dialogue%20on%20Growth%20and%20Solidarity%3A%20reimagining%20human%20mobility,in%20African%20and%20European%20cities" target="_blank">Find out more&nbsp;&nbsp;&rarr;</a></p>
             </div>
           </div>
         </div>
+        <a class="close-x" onclick="a.toggleLegend();">&times;</a>
+
       </div>
     </div>
-    <a class="close-x" onclick="a.toggleLegend();">&times;</a>
   </div>
 
-  <nav id="header" class="<?= ($cityDetailId ? "" : "hide ") ?><?= $palette ?>-bg">
+  <nav id="header" class="<?= ($cityDetailId ? "" : "hide home ") ?><?= $palette ?>-bg">
     
     <?php if ($cityDetailId === null): ?>
+      
       <!-- xs, sm -->
       <a class="d-md-none color-black" href="<?= $urls["site"] ?>">
         <img class="title-xs" src="<?= $urls["assets"] ?>/images/logo-xs.svg" />
       </a>
 
       <!-- md up -->
-      
-      <h1 class="d-none d-md-block title font-serif-l"><a class="color-black" href="<?= $urls["site"] ?>"><?= $headerTitle ?></a></h1>
+      <h1 class="d-none d-md-flex title font-serif-l"><a class="color-black" href="<?= $urls["site"] ?>"><?= $headerTitle ?></a></h1>
 
-      <!-- V2 
-      <h1 class="d-none d-md-block title pt-2"><a class="color-black" href="<?= $urls["site"] ?>">
-        <span class="font-serif-l">Mayors Dialogue</span><br />
-        <span class="font-serif-s" style="position: relative; top: -13px;">on Growth and Solidarity</span>
-      </a></h1>
-      -->
+
     <?php else: ?>
-      <a class="font-sans-m font-bold color-black" href="<?= $urls["site"] ?>">&larr; BACK</a>
+      <a class="font-sans-m font-weight-500 color-black py-3" href="<?= $urls["site"] ?>">&larr;&nbsp;&nbsp;BACK</a>
     <?php endif ?>
     
     <div class="text-right">
-      <a class="ml-3 font-sans-m font-bold color-black" onclick="a.toggleLegend();">How to explore</a>
+      <a class="ml-3 font-sans-m font-weight-500 color-black py-3" onclick="a.toggleLegend();">How to explore</a>
     </div>
   </nav>
 

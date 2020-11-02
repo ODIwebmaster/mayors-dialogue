@@ -1,7 +1,46 @@
 @import url("https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@500&text=%E2%86%90|%E2%86%92");
+.color-white {
+  color: white; }
+
+.color-black {
+  color: black; }
+
+.color-black-50 {
+  color: rgba(0, 0, 0, 0.5); }
+
+.color-white-50 {
+  color: rgba(255, 255, 255, 0.5); }
+
+.bg-color-white {
+  background-color: white; }
+
+.hover-white:hover {
+  color: white; }
+
+.hover-u:hover {
+  text-decoration: underline; }
+
+.upper {
+  text-transform: uppercase; }
+
+.font-bold[class*="font-sans"] {
+  font-weight: 600; }
+.font-bold[class*="font-serif"] {
+  font-weight: 700; }
+
+.font-weight-400 {
+  font-weight: 400 !important; }
+
+.font-weight-500 {
+  font-weight: 500 !important; }
+
 .palette-3-bg {
   background-color: #fbd347; }
+
+.palette-3-bg-lighter {
+  background-color: #FCE69A; }
 
 .palette-3-color-city-name {
   color: black; }
@@ -32,6 +71,9 @@
 
 .palette-4-bg {
   background-color: #97d1be; }
+
+.palette-4-bg-lighter {
+  background-color: #C6E6DB; }
 
 .palette-4-color-city-name {
   color: black; }
@@ -308,6 +350,8 @@ html body input:-internal-autofill-selected {
   @include animation('slide-down 5s 3');
 }
 */
+body.popup {
+  overflow-y: hidden; }
 body.landing section.all-cities .city-prev .texts {
   opacity: 0; }
 
@@ -375,32 +419,6 @@ hr {
   height: 0;
   border-top: 0.5px solid black;
   margin: 8px 0; }
-
-.color-white {
-  color: white; }
-
-.color-black {
-  color: black; }
-
-.color-white-50 {
-  color: rgba(255, 255, 255, 0.5); }
-
-.bg-color-white {
-  background-color: white; }
-
-.hover-white:hover {
-  color: white; }
-
-.hover-u:hover {
-  text-decoration: underline; }
-
-.upper {
-  text-transform: uppercase; }
-
-.font-bold[class*="font-sans"] {
-  font-weight: 600; }
-.font-bold[class*="font-serif"] {
-  font-weight: 700; }
 
 .cols-container {
   display: flex;
@@ -472,10 +490,26 @@ nav#header {
   -ms-transition: top 400ms;
   -o-transition: top 400ms;
   transition: top 400ms; }
+  @media (min-width: 992px) {
+    nav#header.home {
+      justify-content: flex-end; } }
   nav#header.hide {
     top: -80px; }
   body.landing nav#header {
     top: -80px; }
+  nav#header h1.title {
+    pointer-events: none; }
+    @media (min-width: 992px) {
+      nav#header h1.title {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        align-items: center;
+        justify-content: center; } }
+    nav#header h1.title a {
+      pointer-events: all; }
 
 section.city-detail .left {
   position: relative;
@@ -483,7 +517,7 @@ section.city-detail .left {
   /*border: 1px solid rgba(black, 0.1);*/ }
   section.city-detail .left.no-margin {
     width: calc(100% / 1 * 1); }
-  @media (min-width: 768px) {
+  @media (min-width: 992px) {
     section.city-detail .left {
       position: relative;
       width: calc((100% - 90px) / 2 * 1 + 0px);
@@ -503,7 +537,7 @@ section.city-detail .right {
   /*border: 1px solid rgba(black, 0.1);*/ }
   section.city-detail .right.no-margin {
     width: calc(100% / 1 * 1); }
-  @media (min-width: 768px) {
+  @media (min-width: 992px) {
     section.city-detail .right {
       position: relative;
       width: calc((100% - 90px) / 2 * 1 + 0px);
@@ -716,11 +750,11 @@ section.all-cities {
   display: flex;
   opacity: 0;
   pointer-events: none;
-  -webkit-transition: opacity 900ms;
-  -moz-transition: opacity 900ms;
-  -ms-transition: opacity 900ms;
-  -o-transition: opacity 900ms;
-  transition: opacity 900ms; }
+  -webkit-transition: opacity 400ms;
+  -moz-transition: opacity 400ms;
+  -ms-transition: opacity 400ms;
+  -o-transition: opacity 400ms;
+  transition: opacity 400ms; }
   #comment-landing .top, #comment-landing .bottom {
     position: absolute;
     left: 0;
@@ -733,9 +767,9 @@ section.all-cities {
       top: 0; }
     #comment-landing .top.bottom, #comment-landing .bottom.bottom {
       bottom: 0; }
-  @media (min-width: 992px) {
+  @media (min-width: 1200px) {
     #comment-landing .landing-title {
-      font-size: 2vw; } }
+      font-size: 1.8vw; } }
   #comment-landing .text {
     max-width: 30em; }
   #comment-landing.show {
@@ -767,21 +801,27 @@ section.footer-2 {
   transition: opacity 400ms; }
   #legend-overlay .content-wrapper-scroll {
     max-height: 100vh;
-    overflow-y: scroll; }
-    #legend-overlay .content-wrapper-scroll .container-fluid img {
-      max-width: 320px;
-      margin: 90px 0; }
-    @media (min-width: 576px) {
-      #legend-overlay .content-wrapper-scroll .container-fluid {
-        padding: 0 10vw; }
-        #legend-overlay .content-wrapper-scroll .container-fluid img {
-          max-width: 500px; } }
-    @media (min-width: 992px) {
-      #legend-overlay .content-wrapper-scroll .container-fluid {
-        padding: 30px;
-        max-width: 1200px; }
-        #legend-overlay .content-wrapper-scroll .container-fluid img {
-          margin: 0; } }
+    overflow-y: scroll;
+    position: relative;
+    padding: 60px 30px; }
+    #legend-overlay .content-wrapper-scroll .container-fluid {
+      -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+      -moz-box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); }
+      #legend-overlay .content-wrapper-scroll .container-fluid img {
+        max-width: 320px;
+        margin: 90px 0; }
+      @media (min-width: 576px) {
+        #legend-overlay .content-wrapper-scroll .container-fluid {
+          padding: 0 10vw; }
+          #legend-overlay .content-wrapper-scroll .container-fluid img {
+            max-width: 600px; } }
+      @media (min-width: 992px) {
+        #legend-overlay .content-wrapper-scroll .container-fluid {
+          padding: 30px;
+          max-width: 1200px; }
+          #legend-overlay .content-wrapper-scroll .container-fluid img {
+            margin: 0; } }
   #legend-overlay.show {
     opacity: 1;
     pointer-events: all; }
@@ -790,12 +830,13 @@ section.footer-2 {
     top: 0;
     left: 0;
     right: 0;
-    bottom: 0; }
+    bottom: 0;
+    opacity: 0.8; }
   #legend-overlay .close-x {
     pointer-events: all;
     position: absolute;
-    top: 30px;
-    right: 30px;
+    top: calc(60px + 8px);
+    right: calc(30px + 17px);
     font-family: "Work Sans", sans-serif;
     font-size: 25px;
     letter-spacing: 0;
@@ -803,7 +844,7 @@ section.footer-2 {
     font-weight: 400;
     font-style: normal;
     font-stretch: normal;
-    font-size: 40px; }
+    font-size: 30px !important; }
     @media (min-width: 576px) {
       #legend-overlay .close-x {
         font-size: 25px; } }

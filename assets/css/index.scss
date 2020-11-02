@@ -13,6 +13,26 @@ $space: 30px;
 $header-h: 70px;
 $scale-land: 1.25;
 
+
+// ------------------------------------------------------------------------
+// Utilities
+// ------------------------------------------------------------------------
+
+.color-white        { color: white; }
+.color-black        { color: black; }
+.color-black-50     { color: rgba(0,0,0, 0.5); }
+.color-white-50     { color: rgba(255,255,255, 0.5); }
+.bg-color-white     { background-color: white; }
+.hover-white:hover  { color: white; }
+.hover-u:hover      { text-decoration: underline; }
+.upper              { text-transform: uppercase; }
+.font-bold          { 
+  &[class*="font-sans"] { font-weight: 600; } 
+  &[class*="font-serif"] { font-weight: 700; } 
+}
+.font-weight-400    { font-weight: 400 !important; }
+.font-weight-500    { font-weight: 500 !important; }
+
 // ------------------------------------------------------------------------
 // Color palettes
 // ------------------------------------------------------------------------
@@ -23,7 +43,9 @@ $color-map: #5E397F;
 // --- Yellow
 $palette-3-bg: #fbd347;
 $palette-3-darker: #B2772B;
+$palette-3-lighter: #FCE69A;
 .palette-3-bg                { background-color:  $palette-3-bg; }
+.palette-3-bg-lighter        { background-color:  $palette-3-lighter; }
 .palette-3-color-city-name   { color:             black; }
 .palette-3-color-texts       { color:             $palette-3-darker; }
 .palette-3-color-texts-large { color:             black; }
@@ -37,7 +59,9 @@ $palette-3-darker: #B2772B;
 // --- Turquoise
 $palette-4-bg: #97d1be;
 $palette-4-darker: #347069;
+$palette-4-lighter: #C6E6DB;
 .palette-4-bg                { background-color:  $palette-4-bg; }
+.palette-4-bg-lighter        { background-color:  $palette-4-lighter; }
 .palette-4-color-city-name   { color:             black; }
 .palette-4-color-texts       { color:             $palette-4-darker; }
 .palette-4-color-texts-large { color:             black; }
@@ -66,13 +90,13 @@ $palette-4-darker: #347069;
 }
 
 body {
+
+  &.popup {
+    overflow-y: hidden;
+  }
+
   &.landing {
-
     section.all-cities {
-      // @include media-breakpoint-down(sm) {
-      //   transform: scale(1) translateY(150px);
-      // }
-
       .city-prev .texts {
         opacity: 0;
       }
@@ -159,22 +183,6 @@ hr {
 // .border-top-color-c { border-top-color: $color-c; }
 
 // ------------------------------------------------------------------------
-// Utilities
-// ------------------------------------------------------------------------
-
-.color-white        { color: white; }
-.color-black        { color: black; }
-.color-white-50     { color: rgba(255,255,255, 0.5); }
-.bg-color-white     { background-color: white; }
-.hover-white:hover  { color: white; }
-.hover-u:hover      { text-decoration: underline; }
-.upper              { text-transform: uppercase; }
-.font-bold          { 
-  &[class*="font-sans"] { font-weight: 600; } 
-  &[class*="font-serif"] { font-weight: 700; } 
-}
-
-// ------------------------------------------------------------------------
 // Grid
 // ------------------------------------------------------------------------
 
@@ -230,6 +238,10 @@ nav#header {
   padding: 0 $space;
   @include transition(top 400ms);
 
+  &.home {
+    @include media-breakpoint-up(lg) { justify-content: flex-end; }
+  }
+
   &.hide {
     top: -$header-h - 10px;    
   }
@@ -237,7 +249,19 @@ nav#header {
     top: -$header-h - 10px;
   }
 
-  h1.title {}
+  h1.title {
+    pointer-events: none;
+    @include media-breakpoint-up(lg) { 
+      position: absolute;
+      top: 0; bottom: 0; left: 0; right: 0;
+      align-items: center;
+      justify-content: center;
+    }
+
+    a {
+      pointer-events: all;
+    }
+  }
 
 }
 
@@ -245,13 +269,13 @@ section.city-detail {
   
   .left {
     @include col-1-on-1;
-    @include media-breakpoint-up(md) { @include col-1-on-2; }
+    @include media-breakpoint-up(lg) { @include col-1-on-2; }
     @include media-breakpoint-up(xl) { @include col-2-on-5; }
   }
 
   .right {
     @include col-1-on-1;
-    @include media-breakpoint-up(md) { @include col-1-on-2; }
+    @include media-breakpoint-up(lg) { @include col-1-on-2; }
     @include media-breakpoint-up(xl) { @include col-3-on-5; }
   }
 
@@ -475,7 +499,7 @@ section.all-cities {
   display: flex;
   opacity: 0;
   pointer-events: none;
-  @include transition(opacity 900ms);
+  @include transition(opacity 400ms);
   
   // @include media-breakpoint-only(xs) { top: calc(360px + #{$header-h} + 80px); }
   // @include media-breakpoint-only(sm) { top: calc(50vw + #{$header-h} + 80px); }
@@ -495,7 +519,7 @@ section.all-cities {
   }
 
   .landing-title {
-    @include media-breakpoint-up(lg) { font-size: 2vw; }
+    @include media-breakpoint-up(xl) { font-size: 1.8vw; }
   }
 
   .text {
@@ -522,7 +546,10 @@ section.footer-2 {
 #legend-overlay {
   position: fixed;
   z-index: 3;
+
   top: 0; left: 0; right: 0; bottom: 0;
+  // top: $space; left: $space; right: $space; bottom: $space;
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -533,7 +560,17 @@ section.footer-2 {
   .content-wrapper-scroll {
     max-height: 100vh;
     overflow-y: scroll;
+    position: relative;
+
+
+    padding: $space*2 $space;
+    // padding: $space 0 0 0;
+    // @include media-breakpoint-up(lg) { 
+    //   padding: $space;
+    // }
+
     .container-fluid {  
+      @include box-shadow(0, 0, 20px, rgba(0,0,0, .2));
       img {
         max-width: 320px;
         margin: $space*3 0;
@@ -542,7 +579,7 @@ section.footer-2 {
       @include media-breakpoint-up(sm) { 
         // max-width: 400px;
         padding: 0 10vw;
-        img { max-width: 500px; }
+        img { max-width: 600px; }
       }
       @include media-breakpoint-up(lg) { 
         padding: $space;
@@ -560,16 +597,16 @@ section.footer-2 {
   .bg { 
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
-    // opacity: 0.95;
+    opacity: 0.8;
   }
 
   .close-x {
     pointer-events: all;
     position: absolute;
-    top: $space;
-    right: $space;
+    top: calc(#{$space*2} + 8px);
+    right: calc(#{$space} + 17px);
     @include font-sans-l;
-    font-size: 40px;
+    font-size: 30px !important;
   }
 
   img {

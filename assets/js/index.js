@@ -84,7 +84,9 @@ function App (siteUrl, contentFolderUrl, data, palette) {
 
   this.toggleLegend = function () {
     $("#legend-overlay").toggleClass("show");
-    $("#header").toggleClass("hide", $("#legend-overlay").hasClass("show"));
+    var isOpen = $("#legend-overlay").hasClass("show");
+    $("#header").toggleClass("hide", isOpen);
+    $("body").toggleClass("popup", isOpen);
   }
 
   this.displayCityDetail = function () {
@@ -136,9 +138,10 @@ function App (siteUrl, contentFolderUrl, data, palette) {
 
     } else {
     
-      $("section.all-cities").css("transform", "scale(1) translateY(0)");
+      $("section.all-cities").css("transform", "scale(1) translateY(20px)");
       $(".city-prev").removeClass("off").removeClass("legend-on");
       $("#comment-landing").removeClass("show");
+      $("#header").removeClass("hide");
       $("body").removeClass("landing");
     }
     this.state.landing = isLanding;
