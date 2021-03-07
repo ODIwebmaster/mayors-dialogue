@@ -860,4 +860,7 @@ section.footer-2 {
   #legend-overlay img {
     position: relative; }
 
+.markdown p {
+  margin: 5px 0; }
+
 /*# sourceMappingURL=index.css.map */

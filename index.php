@@ -74,9 +74,16 @@ $desc = "African and European cities taking action on human mobility";
 
   // --- settings
 
-  $contentFolder = "1-beta";
+  // $contentFolder = "1-beta";
+  $contentFolder = "2-links";
   $defaultTitle = "The Mayors Dialogue on&nbsp;Growth and&nbsp;Solidarity";
-  $stats = ["population", "gdp", "migrantspercent", "additional1", "additional2"];
+  $stats = [
+    "population",
+    "gdp",
+    "migrantspercent",
+    "additional1",
+    "additional2",
+  ];
   $palettes = [
     // "palette-1", 
     // "palette-2", 
@@ -194,6 +201,20 @@ $desc = "African and European cities taking action on human mobility";
                     <p class="scale font-sans-s <?= $palette ?>-color-map"><?= $cityData["map-scale"] ?></p>
                   </div>
                 </div>
+                
+                <?php 
+                if ($resourcesMd = $cityData["resources"]):
+                  require "Parsedown.php";
+                  $Parsedown = new Parsedown();
+                  $resourcesMarkup = $Parsedown->text($resourcesMd);
+                  ?>
+                  <div class="col-sm-6 mb-5">
+                    <p class="description font-sans-m font-bold <?= $palette ?>-color-texts-upper">Resources</p>
+                    <hr class="<?= $palette ?>-color-hr" />
+                    <div class="font-sans-m font-bold <?= $palette ?>-color-texts-large markdown"><?= $resourcesMarkup ?></div>
+                  </div>
+                <?php endif ?>
+
               </div>
             </div>
            
