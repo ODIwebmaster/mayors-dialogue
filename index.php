@@ -74,8 +74,7 @@ $desc = "African and European cities taking action on human mobility";
 
   // --- settings
 
-  // $contentFolder = "1-beta";
-  $contentFolder = "2-links";
+  $contentFolder = "3-links-update";
   $defaultTitle = "The Mayors Dialogue on&nbsp;Growth and&nbsp;Solidarity";
   $stats = [
     "population",
