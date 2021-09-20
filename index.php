@@ -6,7 +6,7 @@ require "functions.php";
 
 $url = $urls["site"];
 $urlSocialImg = $urls["assets"] ."/images/mayors-dialogue.jpg";
-$pageTitle = "Mayors Dialogue on Growth and Solidarity";
+$pageTitle = "Mayors’ Dialogue on Growth and Solidarity";
 $desc = "African and European cities taking action on human mobility";
 ?>
 
@@ -75,7 +75,7 @@ $desc = "African and European cities taking action on human mobility";
   // --- settings
 
   $contentFolder = "3-links-update";
-  $defaultTitle = "The Mayors Dialogue on&nbsp;Growth and&nbsp;Solidarity";
+  $defaultTitle = "The Mayors’ Dialogue on&nbsp;Growth and&nbsp;Solidarity";
   $stats = [
     "population",
     "gdp",
@@ -364,7 +364,7 @@ $desc = "African and European cities taking action on human mobility";
               Each group of lines corresponds to a different data point: population, GDP per capita and percentage of migrants. The number of red lines in each group represents the data.</p>
               <div class="spacer py-3"></div>
               <h2 class="font-serif-l mb-2">About</h2>
-              <p class="font-serif-m">In <a class="u" href="https://www.odi.org/" target="_blank">ODI</a>'s latest collaboration with designers <a class="u" href="https://twitter.com/fedfragapane" target="_blank">Federica Fragapane</a> and <a class="u" href="https://www.alexpiacentini.com/" target="_blank">Alex Piacentini</a>, explore the cities participating in the Mayors Dialogue on Growth and Solidarity in this data visualisation.</p>               
+              <p class="font-serif-m">In <a class="u" href="https://www.odi.org/" target="_blank">ODI</a>'s latest collaboration with designers <a class="u" href="https://twitter.com/fedfragapane" target="_blank">Federica Fragapane</a> and <a class="u" href="https://www.alexpiacentini.com/" target="_blank">Alex Piacentini</a>, explore the cities participating in the Mayors&rsquo; Dialogue on Growth and Solidarity in this data visualisation.</p>               
               <div class="spacer py-3"></div>
               <p class="mb-5"><a class="btn" href="https://www.odi.org/projects/16889-mayors-dialogue-on-growth-and-solidarity-reimagining-human-mobility-in-africa-and-europe#:~:text=Programmes-,The%20Mayors%20Dialogue%20on%20Growth%20and%20Solidarity%3A%20reimagining%20human%20mobility,in%20African%20and%20European%20cities" target="_blank">Find out more&nbsp;&nbsp;&rarr;</a></p>
             </div>
